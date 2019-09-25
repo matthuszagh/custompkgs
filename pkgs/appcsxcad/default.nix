@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Minimal Application using the QCSXCAD library";
     homepage = https://github.com/thliebig/AppCSXCAD;
     license = stdenv.lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = with stdenv.lib.maintainers; [ matthuszagh ];
     platforms = stdenv.lib.platforms.linux;
   };
 }

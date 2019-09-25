@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub,
-  csxcad, fparser, tinyxml, hdf5, vtk, boost, cgal, zlib, cmake
+  csxcad, fparser, tinyxml, hdf5, vtk, boost, cgal, zlib, cmake, openmpi
 , octave
 }:
 
@@ -18,12 +18,15 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
+  cmakeFlags = [ "-DWITH_MPI=ON" ];
+
   buildInputs = [
     fparser
     tinyxml
     hdf5
     vtk
     boost
+    openmpi
     cgal
     zlib
     csxcad
@@ -46,6 +49,7 @@ stdenv.mkDerivation rec {
     description = "Open Source Electromagnetic Field Solver";
     homepage = http://openems.de/index.php/Main_Page.html;
     license = stdenv.lib.licenses.gpl3;
+    maintainers = with stdenv.lib.maintainers; [ matthuszagh ];
     platforms = stdenv.lib.platforms.linux;
   };
 }

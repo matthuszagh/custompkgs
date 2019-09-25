@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "1hrjxkcvs3ap0bdhk90vymz5pgvxmg7q6sz8ab3wsyddbshr1abq";
   };
 
-  buildInputs = [ openmpi unixODBC mysql57 postgresql ffmpeg boost gdal python cmake libGLU_combined libX11 xorgproto libXt qt4 ];
+  buildInputs = [ openmpi unixODBC mysql57 postgresql ffmpeg boost gdal
+                  python cmake libGLU_combined libX11 xorgproto libXt qt4 ];
 
   preBuild = ''
     export LD_LIBRARY_PATH="$(pwd)/lib";

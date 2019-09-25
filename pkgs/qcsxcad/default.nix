@@ -1,5 +1,5 @@
 { fetchFromGitHub, stdenv, cmake
-, csxcad, tinyxml, vtk, qt4
+, csxcad, tinyxml, vtkWithQt4, qt4
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     csxcad
     tinyxml
-    vtk
+    vtkWithQt4
     qt4
   ];
 

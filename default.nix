@@ -1,7 +1,10 @@
 { system ? builtins.currentSystem }:
 
 let
-  pkgs = import <nixpkgs> { inherit system; };
+  pkgs = import <nixpkgs> {
+    inherit system;
+  };
+
   callPackage = pkgs.lib.callPackageWith (pkgs // self);
   self = rec {
     fparser = callPackage ./pkgs/fparser { };
@@ -48,6 +51,9 @@ let
 
     # python packages
     # pylibftdi = pkgs.callPackage ./pkgs/pylibftdi { };
+
+    # personal packages
     libdigital = pkgs.callPackage ./pkgs/libdigital { };
+    bitmanip = pkgs.callPackage ./pkgs/bitmanip { };
   };
 in self

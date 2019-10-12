@@ -44,6 +44,7 @@ let
     circuitikz.pkgs = [(callPackage ./pkgs/circuitikz { })];
 
     # emacs packages
+    emacs-wrapped = callPackage ./pkgs/emacs-wrapped { };
     org-recoll = callPackage ./pkgs/org-recoll { };
     layers = callPackage ./pkgs/layers { };
     justify-kp = callPackage ./pkgs/justify-kp { };

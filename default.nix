@@ -20,7 +20,6 @@ let
     kibom = callPackage ./pkgs/kibom { };
     avbin = callPackage ./pkgs/avbin { };
     libav = callPackage ./pkgs/libav { };
-    ebase = callPackage ./pkgs/ebase { };
     pt1230 = callPackage ./pkgs/pt1230 { };
 
     vivado-2017-2 = callPackage ./pkgs/vivado/2017 {
@@ -53,6 +52,7 @@ let
     # pylibftdi = pkgs.callPackage ./pkgs/pylibftdi { };
 
     # personal packages
+    ebase = callPackage ./pkgs/ebase { };
     libdigital = pkgs.callPackage ./pkgs/libdigital { };
     bitmanip = pkgs.callPackage ./pkgs/bitmanip { };
   };

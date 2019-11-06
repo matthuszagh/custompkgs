@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = {
+  meta = with stdenv.lib; {
     description = "C++ Library for Evaluating Mathematical Functions";
     homepage = https://github.com/thliebig/fparser;
-    license = stdenv.lib.licenses.lgpl3;
-    maintainers = [ ];
-    platforms = stdenv.lib.platforms.linux;
+    license = licenses.lgpl3;
+    maintainers = with maintainers; [ matthuszagh ];
+    platforms = platforms.linux;
   };
 }

@@ -28,23 +28,15 @@ stdenv.mkDerivation rec {
     groff
   ];
 
-  autoreconfPhase = ''
-  '';
-    # sh ${src}/bootstrap.sh
-
-  # configurePhase = ''
-  #   ${src}/configure --enable-library
-  # '';
-
   configureFlags = [ "--enable-library" ];
 
   enableParallelBuilding = true;
 
-  meta = {
-    description = "Import Hyperlynx Boardsim files to openEMS, an open source 3D full-wave electromagnetic field solver.";
+  meta = with stdenv.lib; {
+    description = "Import Hyperlynx Boardsim files to openEMS, an open source 3D full-wave electromagnetic field solver";
     homepage = https://github.com/koendv/hyp2mat;
-    license = stdenv.lib.licenses.gpl3;
-    maintainers = [ ];
-    platforms = stdenv.lib.platforms.linux;
+    license = licenses.gpl3;
+    maintainers = with maintainers; [ matthuszagh ];
+    platforms = platforms.linux;
   };
 }

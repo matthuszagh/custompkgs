@@ -1,5 +1,6 @@
 { fetchFromGitHub, stdenv, cmake
-, csxcad, tinyxml, vtkWithQt4, qt4
+, csxcad, tinyxml, vtkWithQt4
+, qt4
 }:
 
 stdenv.mkDerivation rec {
@@ -29,11 +30,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = {
+  meta = with stdenv.lib; {
     description = "Qt-GUI for CSXCAD";
     homepage = https://github.com/thliebig/QCSXCAD;
-    license = stdenv.lib.licenses.gpl3;
-    maintainers = [ ];
-    platforms = stdenv.lib.platforms.linux;
+    license = licenses.gpl3;
+    maintainers = with maintainers; [ matthuszagh ];
+    platforms = platforms.linux;
   };
 }

@@ -1,12 +1,13 @@
-{ stdenv, fetchgit, cmake, libGL, libpng, zlib, tetex }:
+{ stdenv, fetchurl, cmake
+, zlib, libGL, libGLU, libpng, freeglut }:
 
 stdenv.mkDerivation rec {
-  name = "gl2ps-${version}";
-  version = "1.4.1";
+  version = "1.4.0";
+  pname = "gl2ps";
 
-  src = fetchgit {
-    url = http://gitlab.onelab.info/gl2ps/gl2ps.git;
-    sha256 = "1d1636gnqa9f73mkl1azdpm6kbqzrg3lwh3f787vcc9f2rhn1f9p";
+  src = fetchurl {
+    url = "http://geuz.org/gl2ps/src/${pname}-${version}.tgz";
+    sha256 = "1qpidkz8x3bxqf69hlhyz1m0jmfi9kq24fxsp7rq6wfqzinmxjq3";
   };
 
   nativeBuildInputs = [
@@ -14,19 +15,18 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    libGL
-    libpng
     zlib
-    tetex
+    libGL
+    libGLU
+    libpng
+    freeglut
   ];
 
-  enableParallelBuilding = true;
-
-  meta = {
-    description = "OpenGL to PostScript printing library";
-    homepage = http://geuz.org/gl2ps/;
-    license = stdenv.lib.licenses.lgpl3;
-    maintainers = with stdenv.lib.maintainers; [ matthuszagh ];
-    platforms = stdenv.lib.platforms.linux;
+  meta = with stdenv.lib; {
+    homepage = http://geuz.org/gl2ps;
+    description = "An OpenGL to PostScript printing library";
+    platforms = platforms.all;
+    license = licenses.lgpl2;
+    maintainers = with maintainers; [raskin twhitehead];
   };
 }

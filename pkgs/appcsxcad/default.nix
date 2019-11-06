@@ -5,7 +5,6 @@
 stdenv.mkDerivation rec {
   name = "appcsxcad-${version}";
   version = "0.2.2";
-  # src = /home/matt/src/openEMS-Project/AppCSXCAD;
   src = fetchFromGitHub {
     owner = "thliebig";
     repo = "AppCSXCAD";
@@ -29,11 +28,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = {
+  meta = with stdenv.lib; {
     description = "Minimal Application using the QCSXCAD library";
     homepage = https://github.com/thliebig/AppCSXCAD;
-    license = stdenv.lib.licenses.gpl3;
-    maintainers = with stdenv.lib.maintainers; [ matthuszagh ];
-    platforms = stdenv.lib.platforms.linux;
+    license = licenses.gpl3;
+    maintainers = with maintainers; [ matthuszagh ];
+    platforms = platforms.linux;
   };
 }

@@ -14,6 +14,12 @@ let
   #   glibcInfo
   # ]);
 
+  # perl-with-packages = pkgs.perl.withPackages(p: with p; [
+  #   RPCEPCService
+  #   DBI
+  #   DBDPg
+  # ]);
+
   binPath = stdenv.lib.makeBinPath (with pkgs; [
     ## programming
     # C / C++
@@ -23,24 +29,47 @@ let
     bear
     # Python
     python3Packages.python-language-server
+    python3Packages.black
     python3
     # hdl
     verilator
+    # bash
+    # TODO add bash-language-server to nixpkgs
+    # tex/latex
+    # TODO add digestif (LSP, github: astoff/digestif) to nixpkgs
+    # fortran
+    # TODO add fortran-language-server (github: hansec/fortran-language-server) to nixpkgs
+    # rust
+    rustc
+    rls
+    rustfmt
+    cargo
+    # tex
+    # TODO data folders wrong location
+    # lua53Packages.digestif
 
     # search
     ripgrep
     recoll
 
     # math / science
-    sage
+    # TODO emacs wrapping problem
+    # sageWithDoc
 
     # mail
-    notmuch
+    # TODO fix
+    # notmuch
 
     # utilities
     imagemagick
     ispell
     gnome3.gnome-terminal
+
+    # needed for edbi
+    # perl-with-packages
+    # perlPackages.RPCEPCService
+    # perlPackages.DBI
+    # perlPackages.DBDPg
 
     # GUI
     #
@@ -69,12 +98,16 @@ let
       alert
       auctex-latexmk
       company
+      # faster, more predictable completion searching
+      prescient
+      company-prescient
       clang-format
       flycheck-clang-analyzer
       helm-exwm
       emms
       pulseaudio-control
 
+      # programming
       cmake-mode
       cmake-font-lock
       elpy
@@ -84,6 +117,11 @@ let
       sage-shell-mode
       ob-sagemath
       python-info
+      rust-mode
+      # a compiler explorer-like implementation in Emacs.
+      rmsbolt
+      # automatically compile outdated elisp files
+      auto-compile
 
       # vim-like integration
       evil
@@ -102,6 +140,8 @@ let
       wgrep
       dumb-jump
       realgud
+
+      edbi # Database viewer
 
       paradox
       general
@@ -138,6 +178,10 @@ let
       company-lsp
       ccls
 
+      # writing
+      writegood-mode
+      define-word
+
       magit
       magithub
       markdown-mode
@@ -156,16 +200,19 @@ let
       slime
       slime-company
       smart-mode-line
+      spaceline
       sourcerer-theme
       symon
       transient
       use-package
       which-key
-      writegood-mode
       x86-lookup
       yasnippet
     ]) ++ (with epkgs.orgPackages; [
       org
+      # TODO how do I do this? Maybe make it a custom package?
+      # see this link for patch https://www.mail-archive.com/emacs-orgmode@gnu.org/msg121966.html
+      # (org.overrideAttrs (attrs: { patches = [ ./org.patch ]; }))
       org-plus-contrib
     ]) ++ (with epkgs; [
       pdf-tools

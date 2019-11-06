@@ -1,4 +1,4 @@
-{ stdenv, python3Packages }:
+{ stdenv, python3Packages, cocotb }:
 
 python3Packages.buildPythonPackage rec {
   pname = "libdigital";
@@ -12,6 +12,7 @@ python3Packages.buildPythonPackage rec {
     setuptools
     matplotlib
     scipy
+    cocotb
   ];
 
   # meta = with stdenv.lib; {

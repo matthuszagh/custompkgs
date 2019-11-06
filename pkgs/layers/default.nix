@@ -1,15 +1,23 @@
-{stdenv, fetchFromGitHub, emacs}:
+{ stdenv, fetchFromGitHub, emacs, pkgs }:
 
+let
+  emacs-with-packages = (pkgs.emacsPackagesGen emacs).emacsWithPackages (epkgs:(with epkgs.melpaPackages; [
+    ht
+    dash
+  ]));
+in
 stdenv.mkDerivation rec {
-  name = "org-recoll";
+  name = "layers";
 
   src = /home/matt/src/layers;
 
-  buildInputs = [ emacs ];
+  propagatedBuildInputs = [
+    emacs-with-packages
+  ];
 
-  # buildPhase = ''
-  #   emacs -L . --batch -f batch-byte-compile *.el
-  # '';
+  buildPhase = ''
+    emacs -L . --batch -f batch-byte-compile *.el
+  '';
 
   installPhase = ''
     mkdir -p $out/share/emacs/site-lisp

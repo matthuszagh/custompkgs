@@ -24,9 +24,11 @@ let
     ## programming
     # C / C++
     gdb
+    lldb
     clang-tools
     clang-analyzer
     bear
+    cppcheck
     # Python
     python3Packages.python-language-server
     python3Packages.black
@@ -47,6 +49,8 @@ let
     # tex
     # TODO data folders wrong location
     # lua53Packages.digestif
+    # needed for debug adapter protocol
+    nodejs
 
     # search
     ripgrep
@@ -55,6 +59,8 @@ let
     # math / science
     # TODO emacs wrapping problem
     # sageWithDoc
+    # circuit simulation
+    ngspice
 
     # mail
     # TODO fix
@@ -64,6 +70,9 @@ let
     imagemagick
     ispell
     gnome3.gnome-terminal
+    ghostscript
+    firefox
+    languagetool
 
     # needed for edbi
     # perl-with-packages
@@ -103,9 +112,11 @@ let
       company-prescient
       clang-format
       flycheck-clang-analyzer
-      helm-exwm
       emms
       pulseaudio-control
+      super-save
+      # jump out of parentheses and quotes with tab. works with
+      tab-jump-out
 
       # programming
       cmake-mode
@@ -122,6 +133,8 @@ let
       rmsbolt
       # automatically compile outdated elisp files
       auto-compile
+      # automatically create banner comments
+      banner-comment
 
       # vim-like integration
       evil
@@ -141,7 +154,8 @@ let
       dumb-jump
       realgud
 
-      edbi # Database viewer
+      # Database viewer
+      edbi
 
       paradox
       general
@@ -150,6 +164,7 @@ let
       github-notifier
       helm
       helm-descbinds
+      helm-exwm
       helm-eww
       helm-org-rifle
       helm-projectile
@@ -157,6 +172,7 @@ let
       helm-systemd
       helm-rg
       helm-org
+      # helm-ls-git
       helpful
       ht
       sx
@@ -177,13 +193,22 @@ let
       lsp-ui
       company-lsp
       ccls
+      # debug adapter protocol
+      dap-mode
 
       # writing
       writegood-mode
       define-word
+      langtool
+      ## perform helm copies/renames asynchronously
+      async
+      ## execute org source blocks asynchronously
+      ob-async
+      # convert pcre regexes to emacs syntax
+      pcre2el
 
       magit
-      magithub
+      forge # integrates magit with github, gitlab, etc.
       markdown-mode
       multiple-cursors
       nix-mode
@@ -192,6 +217,16 @@ let
       no-littering
       nov
       org-board
+      # org-ql
+      # TODO wrap with org-ql
+      ts
+      dash
+      dash-functional
+      f
+      org-super-agenda
+      peg
+      ov
+      # TODO end
       # poly-org
       # polymode
       projectile
@@ -207,12 +242,10 @@ let
       use-package
       which-key
       x86-lookup
-      yasnippet
+      # yasnippet
+      # yasnippet-snippets
     ]) ++ (with epkgs.orgPackages; [
       org
-      # TODO how do I do this? Maybe make it a custom package?
-      # see this link for patch https://www.mail-archive.com/emacs-orgmode@gnu.org/msg121966.html
-      # (org.overrideAttrs (attrs: { patches = [ ./org.patch ]; }))
       org-plus-contrib
     ]) ++ (with epkgs; [
       pdf-tools
@@ -220,6 +253,12 @@ let
       org-recoll
       layers
       justify-kp
+      org-db
+      org-ql
+      yasnippet
+      # helm
+      # helm-org
+      helm-ls-git
     ]));
 in
 pkgs.symlinkJoin {

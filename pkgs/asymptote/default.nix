@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, fetchurl
-, autoconf, bison, glm, yacc, flex
+, autoreconfHook, bison, glm, yacc, flex
 , freeglut, ghostscriptX, imagemagick, fftw
 , boehmgc, libGLU, libGL, mesa, ncurses, readline, gsl, libsigsegv
 , python3Packages
@@ -9,26 +9,29 @@
 }:
 
 stdenv.mkDerivation rec {
-  version = "git";
-  name = "asymptote-${version}";
+  version = "2.61";
+  pname = "asymptote";
 
   src = fetchFromGitHub {
     owner = "vectorgraphics";
-    repo = "asymptote";
-    rev = "24c7bcbc8b6e2e08938ab1fd088e922a0806251f";
-    sha256 = "0bagixd9ksyz4553lwgjpjvpn2r21f0pkdaiazjkkbimlysh90sn";
+    repo = pname;
+    rev = version;
+    sha256 = "0nblcxqzaxv1286zl2fjkivgp478l0nf3m0wnk78rd99lscjlw71";
   };
+
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+    flex
+    yacc
+    texinfo
+  ];
 
   buildInputs = [
     ghostscriptX imagemagick fftw
     boehmgc ncurses readline gsl libsigsegv
     zlib perl
     texLive
-    texinfo
-    autoconf
-    bison
-    flex
-    yacc
   ] ++ (with python3Packages; [
     python
     pyqt5
@@ -44,29 +47,28 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     HOME=$TMP
-    ./autogen.sh
-    configureFlags="$configureFlags \
-      --with-latex=$out/share/texmf/tex/latex \
-      --with-context=$out/share/texmf/tex/context/third"
   '';
+
+  configureFlags = [
+    "--with-latex=$out/share/texmf/tex/latex"
+    "--with-context=$out/share/texmf/tex/context/third"
+  ];
 
   NIX_CFLAGS_COMPILE = [ "-I${boehmgc.dev}/include/gc" ];
 
   postInstall = ''
-    # mv $out/share/info/asymptote/*.info $out/share/info/
-    # sed -i -e 's|(asymptote/asymptote)|(asymptote)|' $out/share/info/asymptote.info
-    # rmdir $out/share/info/asymptote
-    # rm -f $out/share/info/dir
+    mv $out/share/info/asymptote/*.info $out/share/info/
+    sed -i -e 's|(asymptote/asymptote)|(asymptote)|' $out/share/info/asymptote.info
+    rmdir $out/share/info/asymptote
+    rm -f $out/share/info/dir
 
     rm -rf $out/share/texmf
-    mkdir -p $out/share/emacs/site-lisp/${name}
-    mv $out/share/asymptote/*.el $out/share/emacs/site-lisp/${name}
+    install -Dt $out/share/emacs/site-lisp/${pname} $out/share/asymptote/*.el
   '';
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    version = "${version}";
     description =  "A tool for programming graphics intended to replace Metapost";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.raskin maintainers.peti ];

@@ -6,12 +6,13 @@ python3Packages.buildPythonPackage rec {
   pname = "pyspice";
   version = "1.2";
 
-  src = fetchFromGitHub {
-    owner = "FabriceSalvaire";
-    repo = "PySpice";
-    rev = "c0dc504b65bed3aad52d06d6dbe06844ade7a7ce";
-    sha256 = "1k11dl1kfxji70zl5a7s9pchdri4dszxdrlmslp5ghw8296wyfvb";
-  };
+  src = /home/matt/src/PySpice;
+  # src = fetchFromGitHub {
+  #   owner = "FabriceSalvaire";
+  #   repo = "PySpice";
+  #   rev = "c0dc504b65bed3aad52d06d6dbe06844ade7a7ce";
+  #   sha256 = "1k11dl1kfxji70zl5a7s9pchdri4dszxdrlmslp5ghw8296wyfvb";
+  # };
 
   propagatedBuildInputs = (with python3Packages; [
     setuptools

@@ -6,7 +6,6 @@
 stdenv.mkDerivation rec {
   version = "1.11.1-svn7215";
   pname = "luatex";
-  name = "${pname}-${version}";
   tlType = "bin";
 
   # official luatex mirror

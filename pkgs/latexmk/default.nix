@@ -1,4 +1,4 @@
-{stdenv, fetchurl, unzip, perl, texlive}:
+{ stdenv, fetchurl, unzip, perl, texlive }:
 
 stdenv.mkDerivation rec {
   version = "4.65";

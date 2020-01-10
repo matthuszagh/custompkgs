@@ -94,15 +94,18 @@ let
   ] ++ (with custompkgs; [
     sbcl
     brainworkshop
+    gnucap
   ]));
 
-  emacs-wrapped-with-packages = (pkgs.emacsPackagesGen pkgs.emacs).emacsWithPackages (epkgs: (with epkgs.elpaPackages; [
+  emacs-wrapped-with-packages = (pkgs.emacsPackagesGen pkgs.emacs).emacsWithPackages
+  (epkgs: (with epkgs.elpaPackages; [
       aggressive-indent
       auctex
       exwm
       debbugs
       org-edna
       undo-tree
+      # systemd
     ]) ++ (with epkgs.melpaPackages; [
       alert
       auctex-latexmk
@@ -135,6 +138,16 @@ let
       auto-compile
       # automatically create banner comments
       banner-comment
+      # terminal integration
+      vterm
+      # 256 colors in terminals
+      # TODO fix
+      # eterm-256color
+      # switch between current buffer and vterm
+      vterm-toggle
+      # cython support
+      cython-mode
+      flycheck-cython
 
       # vim-like integration
       evil
@@ -166,6 +179,7 @@ let
       helm-descbinds
       helm-exwm
       helm-eww
+      helm-xref
       helm-org-rifle
       helm-projectile
       helm-recoll
@@ -177,6 +191,9 @@ let
       ht
       sx
       elfeed
+
+      # fontification in spice buffers
+      spice-mode
 
       notmuch
       helm-notmuch
@@ -217,6 +234,7 @@ let
       no-littering
       nov
       org-board
+      org-drill
       # org-ql
       # TODO wrap with org-ql
       ts
@@ -237,6 +255,7 @@ let
       smart-mode-line
       spaceline
       sourcerer-theme
+      naysayer-theme
       symon
       transient
       use-package
@@ -256,8 +275,6 @@ let
       org-db
       org-ql
       yasnippet
-      # helm
-      # helm-org
       helm-ls-git
     ]));
 in

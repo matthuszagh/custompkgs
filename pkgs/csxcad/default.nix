@@ -3,8 +3,8 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "csxcad-${version}";
-  version = "0.6.2";
+  pname = "csxcad";
+  version = "master";
   src = fetchFromGitHub {
     owner = "thliebig";
     repo = "CSXCAD";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "18h10575c8k0bx7l0pk5ksqfc1vvnsg98br2987y8x4jmrw2jy50";
   };
 
-  patches = [./searchPath.patch ];
+  patches = [ ./searchPath.patch ];
 
   buildInputs = [
     cgal

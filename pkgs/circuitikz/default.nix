@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, texlive }:
 
 stdenv.mkDerivation rec {
-  version = "v0.9.5";
+  version = "v1.0.0-pre1";
   pname = "circuitikz";
   name = "${pname}-${version}";
   tlType = "run";
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     owner = "circuitikz";
     repo = "circuitikz";
     rev = version;
-    sha256 = "0li53hbs3di1kh1bg4hm7xmp3n1ic3liifhch9cfp2hkr38qqba9";
+    sha256 = "14cfn2x36w5ksygra0rbgj9vshq9r5gl7fsn5x9aw7s0y3wvri6q";
   };
 
   dontBuild = true;

@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub
 , csxcad, fparser, tinyxml, hdf5, vtk, boost, cgal, zlib, cmake, octave, gl2ps
 , withQcsxcad ? true
-, withMPI ? true
+, withMPI ? false
 , withHyp2mat ? true
 , qcsxcad ? null
 , openmpi ? null
@@ -13,14 +13,14 @@ assert withMPI -> openmpi != null;
 assert withHyp2mat -> hyp2mat != null;
 
 stdenv.mkDerivation rec {
-  name = "openems-${version}";
-  version = "0.0.35";
+  pname = "openems";
+  version = "master";
 
   src = fetchFromGitHub {
     owner = "thliebig";
     repo = "openEMS";
-    rev = "ffcf5ee0a64b2c64be306a3154405b0f13d5fbba";
-    sha256 = "1c8wlv0caxlhpicji26k93i9797f1alz6g2kc3fi18id0b0bjgha";
+    rev = "9c78459d5499e40d2e80c2cbfe1da62f40918997";
+    sha256 = "0dk49l3w9wrmn6zksyp1avgi5x80y72cfzrvw3qkak8dsd3ghbh7";
   };
 
   nativeBuildInputs = [

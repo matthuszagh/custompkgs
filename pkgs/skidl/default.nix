@@ -3,20 +3,21 @@
 , kinparse
 , pyspice
 , pykicad
-# , pillow
+, python
 }:
 
 python3Packages.buildPythonPackage rec {
   pname = "skidl";
   version = "0.0.26";
 
-  # src = /home/matt/src/skidl;
-  src = fetchFromGitHub {
-    owner = "xesscorp";
-    repo = "skidl";
-    rev = "${version}";
-    sha256 = "1iizd86pp1ws8jmaqhyxd2raw6jkzjixi78x4k3if3v6illnb3b0";
-  };
+  src = /home/matt/src/skidl;
+  # src = fetchFromGitHub {
+  #   owner = "xesscorp";
+  #   repo = "skidl";
+  #   # rev = "${version}";
+  #   rev = "4da2b7f86c12955c84978c57e36ee5ae01032576";
+  #   sha256 = "06v35m4xkqbl3gs9c64dbjm30q8any3ghnf1g6vs69fa548n8sc5";
+  # };
 
   propagatedBuildInputs = (with python3Packages; [
     setuptools
@@ -27,21 +28,21 @@ python3Packages.buildPythonPackage rec {
     graphviz
     wxPython_4_0
     pykicad
-    # pillow
+    pillow
+    pytest
+    setuptools
   ]) ++ [
     kicad
   ];
 
-  # patchPhase = ''
-  #   export KICAD_SYMBOL_DIR=${kicad.out}/share/kicad/library
-  #   echo $KICAD_SYMBOL_DIR
-  # '';
+  KICAD_SYMBOL_DIR = "${kicad.out}/share/kicad/library";
   doCheck = false;
 
-  # skidl uses KICAD_SYMBOL_DIR to find kicad libraries
-  makeWrapperArgs = [
-    "--set" "KICAD_SYMBOL_DIR" "${kicad.out}/share/kicad/library"
-  ];
+  # checkPhase = ''
+  #   runHook preCheck;
+  #   ${python3Packages.pytest.out}/bin/pytest tests
+  #   runHook postCheck;
+  # '';
 
   meta = with stdenv.lib; {
     description = "SKiDL is a module that extends Python with the ability to design electronic circuits";

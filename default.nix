@@ -100,7 +100,6 @@ let
     # luatex.pkgs = [(callPackage ./pkgs/luatex { })];
 
     # emacs packages
-    emacs-wrapped = callPackage ./pkgs/emacs-wrapped { };
     org-recoll = callPackage ./pkgs/org-recoll { };
     layers = callPackage ./pkgs/layers { };
     org-db = callPackage ./pkgs/org-db { };
